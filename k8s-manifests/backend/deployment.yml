@@ -19,6 +19,7 @@ spec:
       containers:
         - name: backend
           image: vishalv26/java-banking-backend:1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
