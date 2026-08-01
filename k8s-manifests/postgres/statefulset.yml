@@ -23,19 +23,19 @@ spec:
           image: postgres:16-alpine
           ports:
             - containerPort: 5432
-          envfrom:
+          envFrom:
             - secretRef:
                 name: postgres-secret
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgres/data
-          redinessProbe:
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
             exec:
               command: ["pg_isready", "-U", "banking_user", "-d", "bankingdb"]
             initialDelaySeconds: 10
             periodSeconds: 5
 
-  volumeClaimsTemplate:
+  volumeClaimTemplates:
     - metadata:
         name: postgres-storage
       spec:
