@@ -50,7 +50,6 @@ additionalPrometheusRulesMap:
     groups:
       - name: custom-kubernetes-apps
         rules:
-
           - alert: kubePodCrashLoopingFast
             expr: max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[5m]) >= 1
             for: 30s
