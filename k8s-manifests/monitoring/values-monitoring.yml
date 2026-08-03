@@ -50,18 +50,19 @@ additionalPrometheusRulesMap:
     groups:
       - name: custom-kubernetes-apps
         rules:
+
           - alert: kubePodCrashLoopingFast
-            expr: max_overtime(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[5m]) >= 1
+            expr: max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[5m]) >= 1
             for: 30s
             labels:
               severity: warning
-            annotation:
+            annotations:
               description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} is in CrashLoopBackOff"
 
           - alert: kubePodOOMKilled
-            expr: max_overtime(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}) == 1
+            expr: kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
             for: 10s
             labels:
               severity: critical
-            annotation:
+            annotations:
               description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} container {{ $labels.container }} was OOMKilled"
