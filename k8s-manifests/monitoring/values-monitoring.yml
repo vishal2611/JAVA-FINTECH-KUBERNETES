@@ -60,7 +60,7 @@ alertmanager:
         - receiver: 'null'
           matchers:
             - alertname =~ "Watchdog|Kube.*Unreachable|Alertmanager.*Failed.*|etcd.*"
-    receiver:
+    receivers:
       - name: 'null'
       - name: 'discord-notifications'
         discord_configs:
